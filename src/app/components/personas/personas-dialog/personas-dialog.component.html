@@ -1,0 +1,62 @@
+
+<mat-card class="example-card">
+
+  <mat-card-header class="example-card-header">
+    <mat-card-title>Datos Generales</mat-card-title>
+  </mat-card-header>
+
+  <hr>
+
+  <mat-card-content>
+
+    <div class="example-container">
+
+      <form [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="perNombre">
+          <mat-error *ngIf="personaForm.get('perNombre')?.invalid">Este campo es requerido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="perApellido">
+          <mat-error *ngIf="personaForm.get('perApellido')?.invalid">Este campo es requerido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Número de documento</mat-label>
+          <input matInput formControlName="perNumeroDocumento">
+          <mat-error *ngIf="personaForm.get('perNumeroDocumento')?.invalid">Este campo es requerido y debe ser un número.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Tipo de documento</mat-label>
+          <mat-select formControlName="perTipoDocumento" id="perTipoDocumento">
+            <mat-option [value]="personaForm.value.perTipoDocumento">{{personaForm.value.perTipoDocumento}}</mat-option>
+            <mat-option *ngFor="let tipo of tiposDocumento" [value]="tipo.value">{{tipo.viewValue}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="personaForm.get('perTipoDocumento')?.invalid">Este campo es requerido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="perFechaNacimiento">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="personaForm.get('perFechaNacimiento')?.invalid">Este campo es requerido.</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!personaForm.valid" class="button-submit">Guardar</button>
+
+        <button mat-raised-button (click)="cerrarDialog()">Cerrar</button>
+
+      </form>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

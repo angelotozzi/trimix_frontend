@@ -1,0 +1,159 @@
+<mat-card class="example-card example-card-container">
+
+  <mat-card-header class="grid-card-header">
+    <mat-card-title class="grid-card-title"><h1>Personas</h1></mat-card-title>
+    <button mat-flat-button class="example-flat-button-nuevo grid-card-button" (click)="agregarPersona()">
+      <mat-icon aria-hidden="false" fontIcon="add"></mat-icon>
+      <span class="material-symbols-outlined">
+        Nuevo
+      </span>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+
+
+
+
+    <mat-card class="example-card">
+
+      <mat-card-header class="example-card-header">
+        <mat-card-title>Filtros</mat-card-title>
+      </mat-card-header>
+
+      <hr>
+
+      <mat-card-content>
+
+        <div class="example-container">
+
+          <form [formGroup]="formularioBusqueda" class="example-form" (ngSubmit)="getPersonasPorNombreYTipoDoc()">
+
+            <div class="example-form-inputs">
+
+              <mat-form-field
+                class="form-field-input"
+                appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput id="nombreBuscado" formControlName="nombreBuscado" placeholder="nombreBuscado">
+              </mat-form-field>
+
+              <mat-form-field
+                class="form-field-tipoDoc"
+                appearance="outline">
+                <mat-label>Tipo Documento</mat-label>
+                <mat-select formControlName="tipoDocumentoBuscado">
+                  <mat-option value=""></mat-option>
+                  <mat-option value="dni">Dni</mat-option>
+                  <mat-option value="pasaporte">Pasaporte</mat-option>
+                  <mat-option value="cedula">Cédula</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-flat-button color="primary" class="form-button-buscar">
+                <mat-icon aria-hidden="false" fontIcon="search"></mat-icon>
+                <span class="material-symbols-outlined" type="submit">Buscar</span>
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+
+
+
+    <mat-card class="example-card example-card-table">
+
+      <mat-card-header class="example-card-header">
+        <mat-card-title>Personas</mat-card-title>
+      </mat-card-header>
+
+      <hr>
+
+      <mat-card-content>
+
+        <div class="mat-elevation-z8">
+
+          <table mat-table [dataSource]="personasService.dataSource">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Id</th>
+              <td mat-cell *matCellDef="let element"> {{element.perId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let element"> {{element.perNombre}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido">
+              <th mat-header-cell *matHeaderCellDef>Apellido</th>
+              <td mat-cell *matCellDef="let element"> {{element.perApellido}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nroDoc">
+              <th mat-header-cell *matHeaderCellDef>Numero Doc.</th>
+              <td mat-cell *matCellDef="let element"> {{element.perNumeroDocumento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoDoc">
+              <th mat-header-cell *matHeaderCellDef>Tipo Doc.</th>
+              <td mat-cell *matCellDef="let element"> {{element.perTipoDocumento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaNac">
+              <th mat-header-cell *matHeaderCellDef>Fecha Nac.</th>
+              <td mat-cell *matCellDef="let element"> {{element.perFechaNacimiento | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editar">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="primary" (click)="editarPersona(element)">
+                  <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="warn" (click)="eliminarPersona(element)">
+                  <mat-icon aria-hidden="false" fontIcon="delete"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+          <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"></mat-paginator>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+
+
+
+  </mat-card-content>
+
+</mat-card>
+
+
+
+
